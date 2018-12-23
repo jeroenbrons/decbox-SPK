@@ -13,15 +13,13 @@ WIDTH=0
 while true; do
   exec 3>&1
   selection=$(dialog \
-    --backtitle "DECbox by SPARCie" \
+    --backtitle "ITS-menu" \
     --title "Menu" \
     --clear \
     --cancel-label "Exit" \
     --menu "Please select system:" $HEIGHT $WIDTH 4 \
-    "1" "MicroVAX" \
-    "2" "VAX-11" \
-    "3" "PDP-10" \
-    "4" "PDP-11" \
+    "1" "install from Github" \
+    "2" "RUN" \
     2>&1 1>&3)
   exit_status=$?
   exec 3>&-
@@ -43,16 +41,10 @@ while true; do
       echo "Program terminated."
       ;;
     1 )
-      bash uVAX.sh
+      bash itsinst.sh
       ;;
     2 )
-      bash VAX11.sh
-      ;;
-    3 )
-      bash PDP10.sh
-      ;;
-    4 )
-      bash PDP11.sh
+      bash itsrun.sh
       ;;
   esac
-done
+done 

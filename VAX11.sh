@@ -18,10 +18,10 @@ while true; do
     --clear \
     --cancel-label "Exit" \
     --menu "Please select system:" $HEIGHT $WIDTH 4 \
-    "1" "MicroVAX" \
-    "2" "VAX-11" \
-    "3" "PDP-10" \
-    "4" "PDP-11" \
+    "1" "VAX/VMS 4" \
+    "2" "OpenVMS 7.3" \
+    "3" "Quasijarus 4.3" \
+    "4" "Ultrix" \
     2>&1 1>&3)
   exit_status=$?
   exec 3>&-
@@ -43,16 +43,16 @@ while true; do
       echo "Program terminated."
       ;;
     1 )
-      bash uVAX.sh
+      bash vms4-11.sh
       ;;
     2 )
-      bash VAX11.sh
+      bash vms73-11.sh
       ;;
     3 )
-      bash PDP10.sh
+      bash quas-11.sh
       ;;
     4 )
-      bash PDP11.sh
+      bash ultrix-v11.sh
       ;;
   esac
-done
+done 

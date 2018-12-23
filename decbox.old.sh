@@ -9,9 +9,9 @@ while true; do
   cat << _EOF_
 Please Select:
 
-1. VMS 7.3 hyuna
-2. VMS 5.5.2 mina
-3. VMS 4.7 choa
+1. VAX
+2. PDP10
+3. PDP11
 0. Quit
 
 _EOF_
@@ -21,18 +21,15 @@ _EOF_
   if [[ $REPLY =~ ^[0-3]$ ]]; then
     case $REPLY in
       1)
-        cd vax/hyuna
-	vax
+        ./vax.sh
         continue
         ;;
       2)
-	cd vax/mina
-	./vax
+        ./PDP10.sh
         continue
         ;;
       3)
-        cd vax/choa
-	./vax
+        ./PDP11.sh
         continue
         ;;
       0)
