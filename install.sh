@@ -13,15 +13,19 @@ WIDTH=0
 while true; do
   exec 3>&1
   selection=$(dialog \
-    --backtitle "DECbox by SPARCie" \
+    --backtitle "DECbox by SPARCie INSTALL menu" \
     --title "Menu" \
     --clear \
     --cancel-label "Exit" \
-    --menu "Please select system:" $HEIGHT $WIDTH 4 \
-    "1" "VAX/VMS 4" \
-    "2" "OpenVMS 7.3" \
-    "3" "Quasijarus 4.3" \
-    "4" "Ultrix" \
+    --menu "Please select which systems to install:" $HEIGHT $WIDTH 4 \
+    "1" "RSX-11" \
+    "2" "ultrix-VAX" \
+    "3" "TOPS-10" \
+    "4" "TOPS-20 PANDA" \
+    "5" "Quasjarius BSD" \
+    "6" "MIT ITS from Github" \
+    "7" "Ultrix-11" \
+    "8" "2.11 BSD" \
     2>&1 1>&3)
   exit_status=$?
   exec 3>&-
@@ -43,16 +47,28 @@ while true; do
       echo "Program terminated."
       ;;
     1 )
-      bash vms4.sh
+      bash dlrsx11.sh
       ;;
     2 )
-      bash vms73.sh
+      bash dlultrix.sh
       ;;
     3 )
-      bash quas.sh
+      bash dlt10.sh
       ;;
     4 )
-      bash ultrix.sh
+      bash dlpanda.sh
+      ;;
+    5 )
+      bash dlquas.sh
+      ;;
+    6 )
+      bash itsinst.sh
+      ;;
+    7 )
+      bash dlultrix11.sh
+      ;;
+    8 )
+      bash dl211bsd.sh
       ;;
   esac
-done 
+done
