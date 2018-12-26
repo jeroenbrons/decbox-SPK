@@ -43,16 +43,16 @@ while true; do
       echo "Program terminated."
       ;;
     1 )
-      bash its.sh
+      bash pdp10run.sh its
       ;;
     2 )
-      bash t10.sh
+      bash pdp10run.sh t10
       ;;
     3 )
-      bash t20.sh
+      bash pdp10run.sh t20
       ;;
     4 )
-      bash panda.sh
+      bash pdp10run.sh panda
       ;;
   esac
 done 
