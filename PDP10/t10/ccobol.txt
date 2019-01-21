@@ -1,0 +1,109 @@
+In order to compile COBOL programs you must run the
+compiler with r cbl74 or r cobol (if you want cobol68)
+at the * prompt type the following to compile the example program
+
+test,test.lis=test.cbl
+
+after you hit return it should do some compiling and
+give you back to the * prompt
+
+hit ^Z to exit and then type r link
+then type
+test
+test/ssave
+/go
+
+this will produce an executable file. you can modify this procedure to make
+your own cobol programs using the format of test.cbl as a guide along with the
+DEC COBOL manuals which are admittedly rather terse.
+
+Script started on Mon Oct 23 22:14:14 2006
+sh-2.05$ telnet ayeka 2020
+Trying 192.168.93.50...
+Connected to ayeka.
+Escape character is '^]'.
+
+
+Connected to the PDP-10 simulator
+
+
+.login public
+Job 3  VNW  TTY0
+18:52   23-Oct-6   Monday
+
+.dir
+
+
+SED	SFD     1  <775>   23-Oct-06	DSKC:	[42,42]
+TEST	CBL    25  <057>   23-Oct-06
+README	TXT     1  <057>   23-Oct-06
+  Total of 27 blocks in 3 files on DSKC: [42,42]
+
+.r cbl74
+
+
+*test,test.lis=test.cbl
+
+
+WARNINGS:
+
+0365  CBL657 DEC extension - ZERO is only FIGURATIVE CONSTANT allowed for numeri
+c fields by ANSI Standard
+No Fatal Errors, 1 Warning
+
+*^Z
+
+
+EXIT
+
+.r link
+
+*test
+*test/ssave
+*/go
+
+EXIT
+
+.dir
+
+
+SED	SFD     1  <775>   23-Oct-06	DSKC:	[42,42]
+TEST	CBL    25  <057>   23-Oct-06
+README	TXT     1  <057>   23-Oct-06
+TEST	REL    15  <057>   23-Oct-06
+TEST	LIS    33  <057>   23-Oct-06
+TEST	EXE    20  <057>   23-Oct-06	12C(1574)
+  Total of 95 blocks in 6 files on DSKC: [42,42]
+
+.r dskc:test.exe
+
+[COBOL-RMS demonstration program]
+[File not found-- creating empty file]
+[File RMSKY.RMS open for I/O]
+ 
+Type command, one of the following:
+C = Close file and exit
+D = Delete a record
+RR = Do a read with random access
+RS = Do a read with sequential access
+W = Write a new record
+U = Update a record (will do a rewrite)
+T = Type all records in the file
+H = Type this list of commands
+ 
+COMMAND> c
+
+EXIT
+
+.kjob
+Job 3  User PUBLIC [42,42]
+Logged-off TTY0  at 18:53:31  on 23-Oct-6
+Runtime: 0:00:03, KCS:79, Connect time: 0:01:13
+Disk Reads:1653, Writes:247, Blocks saved:2770
+.
+telnet> quit
+Connection to ayeka closed.
+sh-2.05$ exit
+exit
+
+script done on Mon Oct 23 22:15:50 2006

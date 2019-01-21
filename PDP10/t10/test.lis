@@ -1,0 +1,486 @@
+P R O G R A M   K E Y R M S 		COBOL-74 12C(1574) BIS	23-Oct-06  09:15		PAGE 1
+TEST.CBL    23-Oct-06  09:15
+
+0001  
+0002   	 ID DIVISION.
+0003   	 PROGRAM-ID. KEYRMS - RMS/COBOL-74 PROGRAM.
+0004  
+0005  *	 *************************************************************
+0006  *	                                                             *
+0007  *	   This program demonstrates the following:                  *
+0008  *	                                                             *
+0009  *	     1. The use of RMS with COBOL in order to use RMS        *
+0010  *	        indexed files.                                       *
+0011  *	                                                             *
+0012  *	     2. The use of a DECLARATIVES procedure to trap          *
+0013  *	        an error (such as error number 508 for File          *
+0014  *	        not found).                                          *
+0015  *	                                                             *
+0016  *	   This program can be keyed in and run to allow you to      *
+0017  *	   become familiar with using files with more than one key.  *
+0018  *	                                                             *
+0019  *	 *************************************************************
+0020  
+0021   	 ENVIRONMENT DIVISION.
+0022   	 I-O SECTION.
+0023   	 FILE-CONTROL.
+0024  
+0025  *	 *************************************************************
+0026  *	                                                             *
+0027  *	   To specify that the file is an RMS indexed file, you      *
+0028  *	   can either specify "ORGANIZATION IS RMS INDEXED" or       *
+0029  *	   "ALTERNATE RECORD KEY IS" or both.                        *
+0030  *	                                                             *
+0031  *	   This example indicates to the compiler that you want      *
+0032  *	   an RMS indexed file.                                      *
+0033  *	                                                             *
+0034  *	 *************************************************************
+0035  
+0036   	 	SELECT	RMS-INDEX-FILE ASSIGN TO DSK
+0037   	 		ORGANIZATION IS RMS INDEXED
+0038   	 		ACCESS IS DYNAMIC
+0039   	 		RECORDING MODE IS SIXBIT
+0040   	 		FILE STATUS IS FILE-STATUS-1, FILE-STATUS-2,
+0041   	 			IGNORE-FLAG
+0042   	 		RECORD KEY IS EMPLOYEE-NAME
+0043   	 		ALTERNATE RECORD KEY IS EMPLOYEE-NUMBER
+0044   	 			WITH DUPLICATES.
+0045  
+0046   	 DATA DIVISION.
+0047   	 FILE SECTION.
+0048   	 FD	RMS-INDEX-FILE VALUE OF ID IS "RMSKY RMS".
+0049   	 01	RMS-INDEX-RECORD.
+0050   	 	02	EMPLOYEE-NAME PIC X(10).
+0051   	 	02	FILLER PIC X.
+0052   	 	02	EMPLOYEE-NUMBER PIC 9(6).
+0053  P R O G R A M   K E Y R M S 		COBOL-74 12C(1574) BIS	23-Oct-06  09:15		PAGE 2
+TEST.CBL    23-Oct-06  09:15
+
+0054   	 WORKING-STORAGE SECTION.
+0055  
+0056  *	 *************************************************************
+0057  *	                                                             *
+0058  *	   Establish the File Status errors you want to trap. RMS    *
+0059  *	   File Status errors numbers are in the range from 500      *
+0060  *	   to 550.                                                   *
+0061  *	                                                             *
+0062  *	   Refer to Chapter 3 for a complete description of RMS      *
+0063  *	   File Status errors that can be trapped with the USE       *
+0064  *	   statement.                                                *
+0065  *	                                                             *
+0066  *	 *************************************************************
+0067  
+0068   	 01	ERR-FILE-NOT-FOUND INDEX VALUE 508.
+0069  
+0070   	 01	FILE-STATUS-1 PIC 9(2).
+0071   	 01	FILE-STATUS-2 PIC 9(10).
+0072   	 01	FILE-STATUS-2-R REDEFINES FILE-STATUS-2.
+0073   	 	02	FILLER PIC X(7).
+0074   	 	02	FILE-STATUS-2-NUM PIC 9(3).
+0075   	 01	IGNORE-FLAG USAGE INDEX.
+0076  
+0077  *	 *************************************************************
+0078  *	                                                             *
+0079  *	   Define the commands that are used in this program to      *
+0080  *	   work with RMS indexed files.                              *
+0081  *	                                                             *
+0082  *	 *************************************************************
+0083  
+0084   	 01	COMMAND-WORD.
+0085   	 	02	COMMAND-LETTER PIC X.
+0086   	 		88	COMMAND-A VALUE "A".
+0087   	 		88	COMMAND-C VALUE "C".
+0088   	 		88	COMMAND-D VALUE "D".
+0089   	 		88	COMMAND-H VALUE "H".
+0090   	 		88	COMMAND-P VALUE "P".
+0091   	 		88	COMMAND-R VALUE "R".
+0092   	 		88	COMMAND-T VALUE "T".
+0093   	 		88	COMMAND-U VALUE "U".
+0094   	 		88	COMMAND-W VALUE "W".
+0095   	 	02	COMMAND-LET-2 PIC X.
+0096   	 		88	COMMAND-L2-R VALUE "R".
+0097   	 		88	COMMAND-L2-S VALUE "S".
+0098  P R O G R A M   K E Y R M S 		COBOL-74 12C(1574) BIS	23-Oct-06  09:15		PAGE 3
+TEST.CBL    23-Oct-06  09:15
+
+0099   	 PROCEDURE DIVISION.
+0100  
+0101   	 DECLARATIVES.
+0102   	 DECLARE-ERROR SECTION.
+0103   	 	USE AFTER STANDARD ERROR PROCEDURE ON RMS-INDEX-FILE.
+0104  
+0105  *	 *************************************************************
+0106  *	                                                             *
+0107  *	   If the program gets an I/O error for RMS-INDEX-FILE,      *
+0108  *	   this section will be executed. The file status items      *
+0109  *	   will have been set by LIBOL.                              *
+0110  *	                                                             *
+0111  *	   If the error code from LIBOL is "File not found", a       *
+0112  *	   flag is set. If the error code is not "File not found",   *
+0113  *	   this procedure does not set the "IGNORE" flag and LIBOL   *
+0114  *	   aborts this program (as if there were no USE procedure    *
+0115  *	   at all).                                                  *
+0116  *	                                                             *
+0117  *	 *************************************************************
+0118  
+0119   	 DECLARE1-1.
+0120   	 	IF FILE-STATUS-2-NUM NOT = ERR-FILE-NOT-FOUND
+0121   	 		GO TO DECLARE1-EXIT.
+0122  
+0123  *	 *************************************************************
+0124  *	                                                             *
+0125  *	   The "File not found" error has occurred. Set the file     *
+0126  *	   status item "IGNORE-FLAG" to ignore the error, and to     *
+0127  *	   return to the program.                                    *
+0128  *	                                                             *
+0129  *	 *************************************************************
+0130  
+0131   	 	SET IGNORE-FLAG TO 1.
+0132  
+0133   	 DECLARE1-EXIT.
+0134   	 	EXIT.
+0135   	 END DECLARATIVES.
+0136  P R O G R A M   K E Y R M S 		COBOL-74 12C(1574) BIS	23-Oct-06  09:15		PAGE 4
+TEST.CBL    23-Oct-06  09:15
+
+0137   	 BEGIN-RMS-PROGRAM.
+0138  
+0139   	 	DISPLAY "[COBOL-RMS demonstration program]".
+0140  
+0141   	 OPEN-RMS-FILE.
+0142  
+0143  *	 *************************************************************
+0144  *	                                                             *
+0145  *	   Attempt to open the file for I/O. If the file does not    *
+0146  *	   exist, the error procedure traps the open error and       *
+0147  *	   sets the file status item "IGNORE-FLAG" to 1.             *
+0148  *	                                                             *
+0149  *	 *************************************************************
+0150  
+0151   	 	OPEN I-O RMS-INDEX-FILE.
+0152   	 	IF IGNORE-FLAG NOT = 0
+0153   	 		DISPLAY "[File not found-- creating empty file]"
+0154   	 		OPEN OUTPUT RMS-INDEX-FILE
+0155   	 		CLOSE RMS-INDEX-FILE
+0156   	 		OPEN I-O RMS-INDEX-FILE.
+0157  
+0158   	 DISPLAY-OPEN-FOR-IO.
+0159  
+0160   	 	DISPLAY "[File RMSKY.RMS open for I/O]".
+0161  
+0162  *	 *************************************************************
+0163  *	                                                             *
+0164  *	   This procedure displays the commands that can be used.    *
+0165  *	                                                             *
+0166  *	 *************************************************************
+0167  
+0168   	 GET-HELP.
+0169  
+0170   	 	DISPLAY SPACE.
+0171   	 	DISPLAY "Type command, one of the following:".
+0172   	 	DISPLAY "C = Close file and exit".
+0173   	 	DISPLAY "D = Delete a record".
+0174   	 	DISPLAY "RR = Do a read with random access".
+0175   	 	DISPLAY "RS = Do a read with sequential access".
+0176   	 	DISPLAY "W = Write a new record".
+0177   	 	DISPLAY "U = Update a record (will do a rewrite)".
+0178   	 	DISPLAY "T = Type all records in the file".
+0179   	 	DISPLAY "H = Type this list of commands".
+0180  P R O G R A M   K E Y R M S 		COBOL-74 12C(1574) BIS	23-Oct-06  09:15		PAGE 5
+TEST.CBL    23-Oct-06  09:15
+
+0181  *	 *************************************************************
+0182  *	                                                             *
+0183  *	   Enter a command to close, delete, read, write, update,    *
+0184  *	   or type an RMS record. Enter "H" to get help.             *
+0185  *	                                                             *
+0186  *	 *************************************************************
+0187  
+0188   	 GET-COMMAND.
+0189  
+0190   	 	DISPLAY SPACE.
+0191   	 	DISPLAY "COMMAND> " WITH NO ADVANCING.
+0192   	 	ACCEPT COMMAND-WORD.
+0193   	 	IF COMMAND-LETTER = SPACE GO TO GET-COMMAND.
+0194   	 	IF COMMAND-C GO TO CLOSE-RMS-FILE.
+0195   	 	IF COMMAND-D GO TO DELETE-RMS-RECORD.
+0196   	 	IF COMMAND-R GO TO READ-RMS-RECORD.
+0197   	 	IF COMMAND-W GO TO WRITE-RMS-RECORD.
+0198   	 	IF COMMAND-U GO TO UPDATE-RMS-RECORD.
+0199   	 	IF COMMAND-T GO TO TYPE-RMS-RECORD.
+0200   	 	IF COMMAND-H GO TO GET-HELP.
+0201  
+0202   	 INVALID-COMMAND.
+0203  
+0204   	 	DISPLAY "?Invalid command, type 'H' for help"
+0205   	 		GO TO GET-COMMAND.
+0206  
+0207  *	 *************************************************************
+0208  *	                                                             *
+0209  *	   The C command closes the RMS file and exits from the      *
+0210  *	   program.                                                  *
+0211  *	                                                             *
+0212  *	 *************************************************************
+0213  
+0214   	 CLOSE-RMS-FILE.
+0215  
+0216   	 	CLOSE RMS-INDEX-FILE.
+0217   	 	STOP RUN.
+0218  
+0219  *	 *************************************************************
+0220  *	                                                             *
+0221  *	   The D command deletes an RMS record from the file.        *
+0222  *	                                                             *
+0223  *	 *************************************************************
+0224  
+0225   	 DELETE-RMS-RECORD.
+0226  
+0227   	 	PERFORM ACCEPT-RECORD-KEY.
+0228   	 	DELETE RMS-INDEX-FILE INVALID KEY
+0229   	 		DISPLAY "?Can't delete record: "
+0230   	 			WITH NO ADVANCING
+0231   	 		PERFORM TYPE-FILE-STATUS
+0232   	 		GO TO GET-COMMAND.
+0233   	 	DISPLAY "[Record deleted]".
+0234   	 	GO TO GET-COMMAND.
+0235  P R O G R A M   K E Y R M S 		COBOL-74 12C(1574) BIS	23-Oct-06  09:15		PAGE 6
+TEST.CBL    23-Oct-06  09:15
+
+0236  *	 *************************************************************
+0237  *	                                                             *
+0238  *	   The U command updates an RMS record in the file.          *
+0239  *	                                                             *
+0240  *	 *************************************************************
+0241  
+0242   	 UPDATE-RMS-RECORD.
+0243  
+0244   	 	PERFORM ACCEPT-RECORD-KEY.
+0245   	 	READ RMS-INDEX-FILE INVALID KEY
+0246   	 		DISPLAY "?Can't read record: "
+0247   	 			WITH NO ADVANCING
+0248   	 		PERFORM TYPE-FILE-STATUS
+0249   	 		GO TO GET-COMMAND.
+0250   	 	DISPLAY "[Employee number is ",EMPLOYEE-NUMBER,"]".
+0251   	 	PERFORM ACCEPT-ALTERNATE-KEY.
+0252   	 	REWRITE RMS-INDEX-RECORD INVALID KEY
+0253   	 		DISPLAY "?Can't rewrite record: "
+0254   	 			WITH NO ADVANCING
+0255   	 		PERFORM TYPE-FILE-STATUS
+0256   	 		GO TO GET-COMMAND.
+0257   	 	DISPLAY "[Record rewritten]".
+0258   	 	GO TO GET-COMMAND.
+0259  
+0260  *	 *************************************************************
+0261  *	                                                             *
+0262  *	   The W command writes a new RMS record in the file.        *
+0263  *	                                                             *
+0264  *	 *************************************************************
+0265  
+0266   	 WRITE-RMS-RECORD.
+0267  
+0268   	 	PERFORM ACCEPT-RECORD-KEY.
+0269   	 	PERFORM ACCEPT-ALTERNATE-KEY.
+0270   	 	WRITE RMS-INDEX-RECORD INVALID KEY
+0271   	 		DISPLAY "?Can't write record: "
+0272   	 			WITH NO ADVANCING
+0273   	 		PERFORM TYPE-FILE-STATUS
+0274   	 		GO TO GET-COMMAND.
+0275   	 	DISPLAY "[Record written]".
+0276   	 	GO TO GET-COMMAND.
+0277  P R O G R A M   K E Y R M S 		COBOL-74 12C(1574) BIS	23-Oct-06  09:15		PAGE 7
+TEST.CBL    23-Oct-06  09:15
+
+0278  *	 *************************************************************
+0279  *	                                                             *
+0280  *	   The following procedures allow you to either read RMS     *
+0281  *	   records randomly with the "RR" command or read RMS        *
+0282  *	   records sequentially with the "RS" command.               *
+0283  *	                                                             *
+0284  *	 *************************************************************
+0285  
+0286   	 READ-RMS-RECORD.
+0287  
+0288   	 	IF COMMAND-L2-R GO TO READ-RANDOM-RECORD.
+0289   	 	IF COMMAND-L2-S GO TO READ-SEQUENTIAL.
+0290   	 	GO TO INVALID-COMMAND.
+0291  
+0292   	 READ-RANDOM-RECORD.
+0293  
+0294   	 	DISPLAY "Which key? (P = primary, A = alternate): "
+0295   	 			WITH NO ADVANCING.
+0296   	 	ACCEPT COMMAND-LETTER.
+0297   	 	IF COMMAND-P GO TO ACCEPT-PRIMARY-KEY.
+0298   	 	IF COMMAND-A GO TO ACCEPT-SECONDARY-KEY.
+0299   	 	GO TO READ-RANDOM-RECORD.
+0300  
+0301   	 ACCEPT-PRIMARY-KEY.
+0302  
+0303   	 	PERFORM ACCEPT-RECORD-KEY.
+0304   	 	READ RMS-INDEX-FILE KEY IS EMPLOYEE-NAME INVALID KEY
+0305   	 		DISPLAY "?Can't read record: "
+0306   	 		PERFORM TYPE-FILE-STATUS
+0307   	 		GO TO GET-COMMAND.
+0308   	 	GO TO DISPLAY-RMS-RECORD.
+0309  
+0310   	 ACCEPT-SECONDARY-KEY.
+0311  
+0312   	 	PERFORM ACCEPT-ALTERNATE-KEY.
+0313   	 	READ RMS-INDEX-FILE KEY IS EMPLOYEE-NUMBER
+0314   	 			INVALID KEY
+0315   	 		DISPLAY "?Can't read record: "
+0316   	 		PERFORM TYPE-FILE-STATUS
+0317   	 		GO TO GET-COMMAND.
+0318   	 	GO TO DISPLAY-RMS-RECORD.
+0319  
+0320   	 READ-SEQUENTIAL.
+0321  
+0322   	 	READ RMS-INDEX-FILE NEXT RECORD AT END
+0323   	 		DISPLAY "?Can't read next record: "
+0324   	 		PERFORM TYPE-FILE-STATUS
+0325   	 		GO TO GET-COMMAND.
+0326  P R O G R A M   K E Y R M S 		COBOL-74 12C(1574) BIS	23-Oct-06  09:15		PAGE 8
+TEST.CBL    23-Oct-06  09:15
+
+0327   	 DISPLAY-RMS-RECORD.
+0328  
+0329   	 	DISPLAY "[Record is:  !" WITH NO ADVANCING.
+0330   	 	DISPLAY RMS-INDEX-RECORD, "!]".
+0331   	 	GO TO GET-COMMAND.
+0332  
+0333  *	 *************************************************************
+0334  *	                                                             *
+0335  *	   The T command types all the records in the RMS file.      *
+0336  *	   This command allows you the option to type the RMS file   *
+0337  *	   in the order of the primary key or in the order of the    *
+0338  *	   alternate key.                                            *
+0339  *	                                                             *
+0340  *	   The START statement is used here because of the current   *
+0341  *	   positioning in the file. The current position may or      *
+0342  *	   may not be the first record in the file.                  *
+0343  *	                                                             *
+0344  *	 *************************************************************
+0345  
+0346   	 TYPE-RMS-RECORD.
+0347  
+0348   	 	DISPLAY "In order of which key? " WITH NO ADVANCING.
+0349   	 	DISPLAY "(P = primary, A = alternate): "
+0350   	 		WITH NO ADVANCING.
+0351   	 	ACCEPT COMMAND-LETTER.
+0352   	 	IF COMMAND-P GO TO TYPE-START-PRIMARY.
+0353   	 	IF COMMAND-A GO TO TYPE-START-ALTERNATE.
+0354   	 	GO TO TYPE-RMS-RECORD.
+0355  
+0356   	 TYPE-START-PRIMARY.
+0357  
+0358   	 	MOVE LOW-VALUES TO EMPLOYEE-NAME.
+0359   	 	START RMS-INDEX-FILE KEY NOT LESS THAN EMPLOYEE-NAME
+0360   	 		INVALID KEY GO TO TYPE-RMS-RECORD-IK.
+0361   	 	GO TO TYPE-RMS-RECORD-R.
+0362  
+0363   	 TYPE-START-ALTERNATE.
+0364  
+0365   	 	MOVE LOW-VALUES TO EMPLOYEE-NUMBER
+0366   	 	START RMS-INDEX-FILE KEY NOT LESS THAN EMPLOYEE-NUMBER
+0367   	 		INVALID KEY GO TO TYPE-RMS-RECORD-IK.
+0368   	 	GO TO TYPE-RMS-RECORD-R.
+0369  
+0370   	 TYPE-RMS-RECORD-R.
+0371  
+0372   	 	READ RMS-INDEX-FILE NEXT RECORD AT END GO TO GET-COMMAND.
+0373   	 	DISPLAY RMS-INDEX-RECORD.
+0374   	 	GO TO TYPE-RMS-RECORD-R.
+0375  
+0376   	 TYPE-RMS-RECORD-IK.
+0377  
+0378   	 	DISPLAY "% Can't start reading file: " WITH NO ADVANCING.
+0379   	 	PERFORM TYPE-FILE-STATUS.
+0380   	 	GO TO GET-COMMAND.
+0381  P R O G R A M   K E Y R M S 		COBOL-74 12C(1574) BIS	23-Oct-06  09:15		PAGE 9
+TEST.CBL    23-Oct-06  09:15
+
+0382  *	 *************************************************************
+0383  *	                                                             *
+0384  *	   This subroutine accepts the primary record key for        *
+0385  *	   a random read.                                            *
+0386  *	                                                             *
+0387  *	 *************************************************************
+0388  
+0389   	 ACCEPT-RECORD-KEY SECTION.
+0390  
+0391   	 ACC-REC-KEY.
+0392  
+0393   	 	DISPLAY "Type employee name X(10): "
+0394   	 			WITH NO ADVANCING.
+0395   	 	ACCEPT EMPLOYEE-NAME.
+0396  
+0397   	 ACC-REC-KEY-EXIT.
+0398   	 	EXIT.
+0399  
+0400  *	 *************************************************************
+0401  *	                                                             *
+0402  *	   This subroutine accepts the alternate record key for a    *
+0403  *	   random read.                                              *
+0404  *	                                                             *
+0405  *	   RMS allows up to 255 alternate record keys. Each key      *
+0406  *	   can have up to 255 characters.                            *
+0407  *	                                                             *
+0408  *	 *************************************************************
+0409  
+0410   	 ACCEPT-ALTERNATE-KEY SECTION.
+0411  
+0412   	 ACC-ALT-KEY.
+0413   	 	DISPLAY "Type employee number 9(6): "
+0414   	 			WITH NO ADVANCING.
+0415   	 	ACCEPT EMPLOYEE-NUMBER.
+0416  
+0417   	 ACC-ALT-KEY-EXIT.
+0418   	 	EXIT.
+0419  P R O G R A M   K E Y R M S 		COBOL-74 12C(1574) BIS	23-Oct-06  09:15		PAGE 10
+TEST.CBL    23-Oct-06  09:15
+
+0420  *	 *************************************************************
+0421  *	                                                             *
+0422  *	   This subroutine types the file status. The file status    *
+0423  *	   is contained in "FILE-STATUS-1".                          *
+0424  *	                                                             *
+0425  *	 *************************************************************
+0426  
+0427   	 TYPE-FILE-STATUS SECTION.
+0428  
+0429   	 TYPE-FILE-STATUS-1.
+0430   	 	DISPLAY "File status = ",FILE-STATUS-1,": "
+0431   	 			WITH NO ADVANCING.
+0432  
+0433   	 	IF FILE-STATUS-1 = 0
+0434   	 		DISPLAY "Sucessful completion"
+0435   	 		GO TO TYPE-FILE-STATUS-EXIT.
+0436  
+0437   	 	IF FILE-STATUS-1 = 23
+0438   	 		DISPLAY "Invalid key, record not found"
+0439   	 		GO TO TYPE-FILE-STATUS-EXIT.
+0440  
+0441   	 	IF FILE-STATUS-1 = 30
+0442   	 		DISPLAY "Permanent error"
+0443   	 		GO TO TYPE-FILE-STATUS-EXIT.
+0444  
+0445   	 	IF FILE-STATUS-1 = 22
+0446   	 		DISPLAY "Duplicate key"
+0447   	 		GO TO TYPE-FILE-STATUS-EXIT.
+0448  
+0449   	 	IF FILE-STATUS-1 = 10
+0450   	 		DISPLAY "AT END, no next logical record"
+0451   	 		GO TO TYPE-FILE-STATUS-EXIT.
+0452  
+0453   	 	DISPLAY "%% Unexpected error %%".
+0454  
+0455   	 TYPE-FILE-STATUS-EXIT.
+0456   	 	EXIT.P R O G R A M   K E Y R M S 		COBOL-74 12C(1574) BIS	23-Oct-06  09:15		PAGE W-1
+TEST.CBL    23-Oct-06  09:15
+
+WARNINGS:
+
+0365  CBL657 DEC extension - ZERO is only FIGURATIVE CONSTANT allowed for numeric fields by ANSI Standard
+
+
+No Fatal Errors, 1 Warning
+ 

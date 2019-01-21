@@ -1,0 +1,20 @@
+1.0 --- Initial release containing BASIC, KERMIT, COBOL, FORTRAN
+CUSPS, TOPS-10 integration tools,  and the haunt game (SYS:haunt.exe)
+
+
+1.1 --- Added   APLSF V2 (435), BLISS-36 V4.2 (236), DBMS V5A, IQL3A V30,
+Message System V11CK (see documentation), ALGOL-10 Version 10A.
+
+1.2  10/23/2006--- Added K10MIT, SED Screen Editor
+Updated sys:notice.txt with contact information
+Fixed problem with disk structures not in the galaxy catalog, which
+kept the public users home directory form working propperly
+Added a dskc structure for non system files
+Added examples on compiling COBOL programs and transfering files via kermit
+
+1.3 8/7/2007 --- 
+Daniel Baum pointed out that I had incompatable COBOL versions installed
+(COBOL-74 V12C, and COBOL-68 V12A) I have now both cobol versions at 12B
+
+1.4 08/14/2007 ---
+Fixed the fortran compiler and added original version of adventure.
