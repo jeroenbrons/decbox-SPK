@@ -1,3 +1,11 @@
 *.dsk
 *.tap
+*.img
+*.tar
+*.gz
+*.DSK
+*.TAP
+*.IMG
+*.GZ
+*.TAR
 
