@@ -1,0 +1,881 @@
+PDP-11 simulator V3.6-1
+sim> set cpu 11/93
+sim> set cpu 4m
+Disabling CR
+Disabling RK
+Disabling HK
+Disabling TM
+sim> set rq0 rd54
+sim> att rq0 rstsv9.dsk
+RQ: creating new file
+sim> set ts enable
+sim> set ts locked
+sim> att ts -f tpc rsts_v9_6_install.tap
+sim> boo ts
+
+Performing limited hardware scan.
+
+
+RSTS V9.6 (MS0) INIT V9.6-11
+
+
+Today's date? 22-OCT-99
+
+Current time? 3:16
+
+
+Installing RSTS on a new system disk? <Yes> 
+
+22-Oct-99 03:16 AM
+
+Disk? DU0
+Pack ID? RSTSV9
+Pack cluster size <8>? 
+MFD cluster size <16>? 
+SATT.SYS base <19448>? 
+Pre-extend directories <NO>? 
+PUB, PRI, or SYS <SYS>? 
+[1,1] cluster size <16>? 
+[1,2] cluster size <16>? 
+[1,1] and [1,2] account base <19448>? 
+Date last modified <YES>? 
+New files first <NO>? 
+Read-only <NO>? 
+Patterns <3>? 
+Proceed (Y or N)? Y
+
+Pattern 3
+
+Pattern 2
+
+Pattern 1
+
+Copying required system files
+
+Performing limited hardware scan.
+
+
+RSTS V9.6 (DU0) INIT V9.6-11
+
+22-Oct-99 03:16 AM
+
+
+Start timesharing? <Yes> 
+  Starting SYSGEN.SIL . . .
+  Rebooting . . .
+
+
+
+
+RSTS V9.6 (DU0) INIT V9.6-11
+
+22-Oct-99 03:17 AM
+
+Creating SWAP.SYS file with minimum size of 128 blocks
+
+  Memory allocation table:
+
+     0K: 00000000 - 00507777 (  82K) : EXEC
+    82K: 00510000 - 15527777 (1668K) : USER
+  1750K: 15530000 - 17757777 ( 294K) : XBUF
+
+Memory available to RSTS/E is 2044K words.
+
+Creating CRASH.SYS file with minimum size of 136 blocks
+
+13 devices disabled
+
+
+Do you want to perform an installation or an update? <installation> 
+
+Please mount the RSTS/E Installation media and enter the name
+and unit number of the device.
+Valid device types are: 'MM', 'MS', 'MT', 'MU', 'DM' or 'DL'
+
+Installation device? <_MS0:> 
+
+Restoring required _SY0:[0,1] components
+
+
+Deleting all global symbols
+
+
+
+22-Oct-99 03:17 AM
+
+
+    Beginning of the RSTS/E Software Installation Procedure
+
+Type '?' for help
+Type '^' to go back to the previous question
+Type CTRL/Z to return to the beginning of the present section
+
+  * Starting dialogue phase *
+
+
+Are you ready to proceed? <yes> 
+
+Please enter the name and unit number of the disk to
+which you want to install the software. This disk
+should be physically mounted and write-enabled.
+
+Target disk? <_SY:> 
+
+Restoring required _SY:[1,2] components
+
+Assigning system logicals
+
+    ** Starting Monitor Section **
+
+
+Do you want to install the RSTS/E monitor? <yes> 
+
+Restoring required SYSGEN components
+
+Use template monitor ?          <N >    
+
+New Monitor name ?              <RSTS>  
+
+Accept defaults ?               <N >    
+
+
+The following questions deal  with  the
+numbers and kinds of disk units on this
+system.
+
+Accept Disk defaults ?          <N >    
+
+RK05's ?                        <00>    
+
+RL01/RL02's ?                   <04>    
+
+Overlapped seek ?               <Y >    
+
+RK06/RK07's ?                   <00>    
+
+RP02/RP03's ?                   <00>    
+
+Disks on DR controller ?        <08>    
+
+Overlapped seek ?               <Y >    
+
+Disks on DB controller ?        <00>    
+
+MSCP support ?                  <Y >    
+
+
+The following questions  deal  with  the
+peripheral   devices  attached  to  this
+RSTS/E system.
+
+Accept Peripheral defaults ?    <N >    
+
+TU16/TE16/TU45/TU77's ?         <00>    
+
+TU10/TE10/TS03's ?              <00>    
+
+TS11/TK25/TSV05/TU80's ?        <01>    
+
+TMSCP tape drives ?             <01>    
+
+DECtapes ?                      <00>    
+
+Printers ?                      <01>    
+
+RX01/RX02's ?                   <08>    0
+
+CR11/CM11 card reader ?         <N >    
+
+CD11 card reader ?              <N >    
+
+P.T. reader / punch ?           <Y >    N
+
+DMC11's/DMR11's ?               <00>    
+
+DMV11's/DMP11's ?               <00>    
+
+IBM 3271 or 2780/3780 simultaneous links ?      <00>    
+
+RJ2780 support ?                <N >    
+
+
+The following questions  deal  with  the
+capacity  and  features  of  this RSTS/E
+system  provided at the system manager's
+option.
+
+Accept Software defaults ?      <N >    
+
+Maximum jobs ?                  <25>    63
+
+Small buffers ?                 <500>   640
+
+EMT Logging ?                   <N >    
+
+    ** End of Monitor Section **
+
+
+    ** Starting System Programs Section **
+
+
+Do you want to install the System Program packages? <yes> 
+
+Packages to install: 
+
+The valid responses are:
+
+     DIALOGUE           Switches you to the long form of the System
+                          Software Packages dialogue where a more
+                          detailed description of each package is provided
+     ALL                Selects all packages
+     ALL,NOpkg[,...]    Selects all packages except pkg and any packages
+                          that include pkg
+
+Use a comma as a separator. e.g.: RSX,PBS,RMS
+
+Package names:
+
+   AUXLIB    Auxiliary Library               RMS       RMS-11
+   BASIC     Basic-Plus                                 (includes RSX Utilities)
+   DAP       RMS DECnet Data Access Package  RSX       RSX Utilities
+              (includes RMS-11)              SORT      Sort/Merge
+   EDT       EDT Editor                                 (includes RMS-11)
+   HELP      Help Package                    TECO      TECO Editor
+   OPSER     Opser-based Spooler             TEST      Device Testing
+   PBS       Print/Batch Services            UNSUPP    Unsupported Utilities
+   RESTORE   File Restore                    UPDATE    Update Package
+
+Packages to install: ALL
+
+The following will be installed:
+
+     RSX
+     RMS
+     DAP
+     PBS
+     EDT
+     UPDATE
+     TEST
+     UNSUPP
+     TECO
+     AUXLIB
+     RESTORE
+     OPSER
+     SORT
+     HELP
+     BASIC
+
+Proceed? <yes> 
+
+Do you want the I&D versions of tasks? <no> y
+
+Use resident library version of RMS? <yes> 
+
+Use RMS resident libraries in DAP? <yes> 
+
+Use RMS resident libraries in PBS? <yes> 
+
+Use resident library version of EDT? <yes> 
+
+During the build phase there will be further questions
+for BASIC-PLUS and SORT/MERGE
+
+    ** End of System Programs Section **
+
+
+    ** Starting Layered Products Section **
+
+
+Do you want to transfer the layered product update components
+from the Installation kit? <yes> 
+
+Product updates to transfer: 
+
+The valid responses are:
+
+     ALL                Transfers all product updates
+     ALL,NOprod[,...]   Transfers all product updates except prod
+
+Use a comma as a separator. e.g.: BP2,C81
+
+Product names:
+
+ADE         DECWORD     FMS         MENU        RPG
+BP2         DECNET      FORTRAN     MSGROUTER   WPS
+COBOL       DIBOL       FRTRN77     PDPDBG      2780 3780
+C81         DIBS        F77DBG      PLXY        3271
+DECDX       DMS500      INDENT      PRO IV
+DECGRAPH    DTR         MAIL        RJ2780
+
+Product updates to transfer: ALL
+
+The following will be transferred:
+
+     ADE
+     BP2
+     COBOL
+     C81
+     DECDX
+     DECGRAPH
+     DECNET
+     DECWORD
+     DIBOL
+     DIBS
+     DMS500
+     DTR
+     FMS
+     FORTRAN
+     FRTRN77
+     F77DBG
+     INDENT
+     MAIL
+     MENU
+     MSGROUTER
+     PDPDBG
+     PLXY
+     PROIV
+     RJ2780
+     RPG
+     WPS
+     27803780
+     3271
+
+Proceed? <yes> 
+
+NOTE: Any files currently in the PATCH ACCOUNT will be deleted
+
+Since some layered products may require the Update package
+(from the System Programs section), it will be included.
+To install a layered product please refer to the individual
+layered product installation guide.
+
+Patch account? <PATCH$:> 
+
+    ** End of Layered Products Section **
+
+
+You must now set the password for account _SY:[1,2]
+New password: 
+New password again, for verification: 
+Password set for account _SY:[1,2]
+
+  * End of dialogue phase *
+
+
+  * Starting build phase *
+
+
+Are you ready to proceed? <yes> 
+
+22-Oct-99 03:18 AM
+
+
+
+Do you want _SY0:SWAP1.SYS created? <yes> 
+
+Creating _SY0:[0,1]SWAP1.SYS at 15872 blocks
+
+Creating RSTS/E monitor
+
+%Small Buffers Lowered by 55 
+%Leaving you with 585 Buffers.
+This monitor has a valid buffer count
+Directory of SIL RSTS  .SIL on 22-Oct-99 at 03:19 AM
+
+ Name   Ident    Load    Size  Transfer Total
+
+RSTS    09.611  000000  130400  000001   23K
+MVR     09.600  120000  007600  000001   25K
+MCP     09.600  120000  015000  000001   28K
+BBR     09.600  120000  016100  000001   31K
+EMT     09.600  120000  013500  000001   34K
+EM2     09.600  120000  015300  000001   38K
+RSX     09.600  120000  012600  000001   40K
+GEN     09.600  120000  013500  000001   43K
+GRD     09.608  120000  007500  000001   45K
+OPN     09.600  120000  017700  000001   49K
+KBD     09.601  120000  012600  000001   52K
+KIN     09.601  120000  011700  000001   54K
+PKPORT  09.601  120000  001600  000001   55K
+DLPORT  09.601  120000  000600  000001   55K
+DSK     09.600  120000  010200  000001   57K
+FIP     09.600  140000  012000  000001   59K
+NSP     04.011  120000  017600  000001   63K
+EVL     04.011  120000  005300  000001   65K
+RDM     04.011  120000  005700  000001   66K
+TRN     04.011  120000  017200  000001   70K
+SES     04.011  120000  003100  000001   71K
+NOD     09.611  120000  010500  000001   73K
+UNA     09.611  120000  020000  000001   77K
+QNA     09.611  120000  017600  000001   81K
+DHPORT  09.601  120000  001100  000001   81K
+DZPORT  09.601  120000  000500  000001   81K
+VHPORT  09.601  120000  001100  000001   82K
+TERCLS  09.610  140000  005200  000001   83K
+FMS     09.610  120000  012600  000001   86K
+LAT     09.601  120000  010600  000001   88K
+CRA     09.608  120000  002600  000001   88K
+OVR     09.606  002000  166000  000001  118K
+DEFALT  09.600  001000  003000  000001  119K
+
+Maximum buffers available without using data space:
+  584 general small buffers.
+  94 FIP small buffers.
+
+Maximum buffers available using data space:
+  832 general small buffers.
+  494 FIP small buffers.
+
+This system contains the maximum number of buffers that
+can be specified at installation time.
+
+
+
+
+
+22-Oct-99 03:19 AM
+
+Restoring the System Startup files from the Installation kit
+Restoring the System Library package from the Installation kit
+Restoring the Error package from the Installation kit
+Restoring the RSX Libraries from the Installation kit
+Restoring the RSX Utilities from the Installation kit
+Restoring the RMS-11 package from the Installation kit
+Restoring the RMS Libraries from the Installation kit
+Restoring the Print/Batch Services package from the Installation kit
+Restoring the EDT package from the Installation kit
+Restoring the Update package from the Installation kit
+Restoring the Device Testing package from the Installation kit
+Restoring the Unsupported Utilities from the Installation kit
+Restoring the TECO package from the Installation kit
+Restoring the Auxiliary Libraries from the Installation kit
+Restoring the File Restore package from the Installation kit
+Restoring the Opser-based Spooling package from the Installation kit
+Restoring the SORT/MERGE package from the Installation kit
+Restoring the Help package from the Installation kit
+Restoring the BASIC-PLUS package from the Installation kit
+Restoring the Resident Libraries from the Installation kit
+
+22-Oct-99 03:20 AM
+
+Restoring ADE update components from the Installation kit
+Restoring BP2 update components from the Installation kit
+Restoring COBOL update components from the Installation kit
+Restoring C81 update components from the Installation kit
+Restoring DECDX update components from the Installation kit
+Restoring DECGRAPH update components from the Installation kit
+Restoring DECNET update components from the Installation kit
+Restoring DECWORD update components from the Installation kit
+Restoring DIBOL update components from the Installation kit
+Restoring DIBS update components from the Installation kit
+Restoring DMS500 update components from the Installation kit
+Restoring DTR update components from the Installation kit
+Restoring FMS update components from the Installation kit
+Restoring FORTRAN update components from the Installation kit
+Restoring FRTRN77 update components from the Installation kit
+Restoring F77DBG update components from the Installation kit
+Restoring INDENT update components from the Installation kit
+Restoring MAIL update components from the Installation kit
+Restoring MENU update components from the Installation kit
+Restoring MSGROUTER update components from the Installation kit
+Restoring PDPDBG update components from the Installation kit
+Restoring PLXY update components from the Installation kit
+Restoring PROIV update components from the Installation kit
+Restoring RJ2780 update components from the Installation kit
+Restoring RPG update components from the Installation kit
+Restoring WPS update components from the Installation kit
+Restoring 27803780 update components from the Installation kit
+Restoring 3271 update components from the Installation kit
+
+
+22-Oct-99 03:20 AM
+
+
+Please mount the RSTS/E Library media and enter the
+name and unit number of the device.
+Valid device types are: 'MM', 'MS', 'MT', 'MU', 'DM' or 'DL'
+
+Library device? <_MS0:> 
+Simulation stopped, PC: 111236 (WAIT)
+sim> at ts -f tpc rsts_v9_library.tap
+sim> c
+
+
+Restoring the System Startup files from the Library kit
+Restoring the System Library package from the Library kit
+File [1,2]LOGIN .TSK not replaced
+File [1,2]LOGOUT.TSK not replaced
+File [1,2]DIRECT.TSK not replaced
+File [1,2]SYSTAT.TSK not replaced
+File [1,2]FILCOM.TSK not replaced
+File [1,2]ATPK  .TSK not replaced
+File [1,2]SAVRES.SAV not replaced
+File [1,2]TERMGR.TSK not replaced
+File [1,2]RDRXXX.TSK not replaced
+File [1,2]RDRIDS.TSK not replaced
+Restoring the Error package from the Library kit
+File [0,3]ERRDAT.FIL not replaced
+File [0,3]MSCPER.FIL not replaced
+File [0,3]ERRINT.TSK not replaced
+File [0,3]ERRCPY.TSK not replaced
+File [0,3]ERRDIS.TSK not replaced
+File [0,3]ERRDET.TSK not replaced
+File [0,3]ANALYS.TSK not replaced
+File [0,3]ANALY1.TSK not replaced
+File [0,3]ANALY2.TSK not replaced
+File [0,3]ANALY3.TSK not replaced
+Restoring the RSX Libraries from the Library kit
+File [1,1]SYSLIB.OLB not replaced
+File [1,1]RSXMAC.SML not replaced
+File [1,1]BP2   .LNK not replaced
+File [1,1]RSX11 .LNK not replaced
+Restoring the RSX Utilities from the Library kit
+File [1,2]MAKSIL.TSK not replaced
+File [1,2]TKBXX .TSK not replaced
+File [1,2]TKBID .TSK not replaced
+File [1,2]STKXX .TSK not replaced
+File [1,2]STKID .TSK not replaced
+File [1,2]MACXX .TSK not replaced
+File [1,2]MACID .TSK not replaced
+File [1,2]PRELIN.TSK not replaced
+Restoring the RMS-11 package from the Library kit
+File [0,10]BCKNON.TSK not replaced
+File [0,10]RSTNON.TSK not replaced
+File [0,10]DEFNON.TSK not replaced
+File [0,10]DSPNON.TSK not replaced
+File [0,10]CNVNON.TSK not replaced
+File [0,10]CNVNOO.TSK not replaced
+File [0,10]DESNON.TSK not replaced
+File [0,10]IFLNON.TSK not replaced
+File [0,10]BCKNRN.TSK not replaced
+File [0,10]RSTNRN.TSK not replaced
+File [0,10]DEFNRN.TSK not replaced
+File [0,10]DSPNRN.TSK not replaced
+File [0,10]CNVNRN.TSK not replaced
+File [0,10]CNVNRR.TSK not replaced
+File [0,10]DESNRN.TSK not replaced
+File [0,10]IFLNRN.TSK not replaced
+Restoring the RMS Libraries from the Library kit
+File [1,1]RMSMAC.MLB not replaced
+File [1,1]RMSLIB.OLB not replaced
+File [1,1]RMSDAP.OLB not replaced
+File [1,1]RMSFUN.OBJ not replaced
+File [1,1]RMSRES.TSK not replaced
+File [1,1]RMSRES.STB not replaced
+File [1,1]DAPRES.TSK not replaced
+File [1,1]DAPRES.STB not replaced
+File [1,1]RMSDES.HLP not replaced
+Restoring the Print/Batch Services package from the Library kit
+File [0,6]PBSRES.TSK not replaced
+File [0,6]PBSOVR.TSK not replaced
+File [0,6]PBSMGS.TSK not replaced
+File [0,6]PBSMGV.TSK not replaced
+Restoring the EDT package from the Library kit
+File [0,11]EDTRES.LIB not replaced
+File [0,11]EDTRES.TSK not replaced
+File [0,11]EDTOVR.TSK not replaced
+Restoring the Update package from the Library kit
+File [0,4]UPDATE.DOC not replaced
+File [0,4]BUILD .TSK not replaced
+Restoring the Device Testing package from the Library kit
+File [0,5]DSKSEK.TSK not replaced
+File [0,5]MTEXER.TSK not replaced
+Restoring the Unsupported Utilities from the Library kit
+File [0,9]STATUS.B2S not replaced
+File [0,9]DSKPEK.OBJ not replaced
+File [0,9]LQSTAT.BAS not replaced
+File [0,9]MEMORY.BAS not replaced
+File [0,9]EMTCPY.BAS not replaced
+File [0,9]RSTSFL.OBJ not replaced
+File [0,9]RSTSFL.OLB not replaced
+File [0,9]MEMORY.TSK not replaced
+File [0,9]RNO   .TSK not replaced
+File [0,9]HYPHEN.MAC not replaced
+File [0,9]EMTCPY.TSK not replaced
+File [0,9]STATUS.TSK not replaced
+File [0,9]LQSTAT.TSK not replaced
+Restoring the TECO package from the Library kit
+File [0,13]TECO  .RTS not replaced
+File [0,13]TECO  .DOC not replaced
+File [0,13]GEXIT .OBJ not replaced
+Restoring the Auxiliary Libraries from the Library kit
+File [0,14]ODT   .TSK not replaced
+File [0,14]COPY  .TSK not replaced
+File [0,14]DISPLY.TSK not replaced
+File [0,14]BPCRF1.TSK not replaced
+File [0,14]RUNOFF.TSK not replaced
+File [0,14]DSKCVT.TSK not replaced
+Restoring the File Restore package from the Library kit
+File [0,7]BACFRM.TSK not replaced
+Restoring the Opser-based Spooling package from the Library kit
+File [0,8]QUEMAN.TSK not replaced
+File [0,8]QUMRUN.TSK not replaced
+File [0,8]OPSER .TSK not replaced
+File [0,8]OPSRUN.TSK not replaced
+File [0,8]SPOOL .TSK not replaced
+File [0,8]SPLIDL.TSK not replaced
+File [0,8]SPLRUN.TSK not replaced
+File [0,8]BATCH .TSK not replaced
+File [0,8]BATIDL.TSK not replaced
+File [0,8]BATDEC.TSK not replaced
+File [0,8]BATRUN.TSK not replaced
+File [0,8]QUE   .TSK not replaced
+Restoring the SORT/MERGE package from the Library kit
+File [0,15]SRTLIB.OLB not replaced
+File [0,15]SRTUTL.ODL not replaced
+File [0,15]MGELIB.OLB not replaced
+File [0,15]MGEUTL.ODL not replaced
+File [0,15]SRTMRG.001 not replaced
+File [0,15]SRTMRG.002 not replaced
+File [0,15]SRTMRG.003 not replaced
+File [0,15]SRTMRG.004 not replaced
+File [0,15]SRTTRN.TSK not replaced
+File [0,15]SRTFIL.ODL not replaced
+File [0,15]SRTREC.ODL not replaced
+File [0,15]MGEFIL.ODL not replaced
+File [0,15]MGEREC.ODL not replaced
+File [0,15]SRTMRG.005 not replaced
+File [0,15]SRTMRG.006 not replaced
+File [0,15]SRTMRG.007 not replaced
+File [0,15]SRTSHR.OLB not replaced
+File [0,15]MGESHR.OLB not replaced
+File [0,15]SRTMRG.008 not replaced
+File [0,15]SRTTST.DAT not replaced
+File [0,15]SRTMGE.MST not replaced
+File [0,15]SRTMRG.009 not replaced
+File [0,15]SRTMRG.010 not replaced
+File [0,15]SRTMRG.011 not replaced
+File [0,15]SRTMRG.012 not replaced
+File [0,15]SRTMRG.013 not replaced
+File [0,15]SORT  .COM not replaced
+Restoring the Help package from the Library kit
+File [0,2]HELP  .TSK not replaced
+File [0,2]HELP  .HLP not replaced
+File [0,2]DCAPPE.HLP not replaced
+File [0,2]DCASSI.HLP not replaced
+File [0,2]DCASSY.HLP not replaced
+File [0,2]DCBACK.HLP not replaced
+File [0,2]DCBASI.HLP not replaced
+File [0,2]DCBROA.HLP not replaced
+File [0,2]DCCOPY.HLP not replaced
+File [0,2]DCCREA.HLP not replaced
+File [0,2]DCCRAC.HLP not replaced
+File [0,2]DCDFCS.HLP not replaced
+File [0,2]DCDELE.HLP not replaced
+File [0,2]DCDLSB.HLP not replaced
+File [0,2]DCDIBO.HLP not replaced
+File [0,2]DCDIFF.HLP not replaced
+File [0,2]DCDIRE.HLP not replaced
+File [0,2]DCEDIT.HLP not replaced
+File [0,2]DCFORC.HLP not replaced
+File [0,2]DCF77 .HLP not replaced
+File [0,2]DCFOFO.HLP not replaced
+File [0,2]DCGOTO.HLP not replaced
+File [0,2]DCINDK.HLP not replaced
+File [0,2]DCINMT.HLP not replaced
+File [0,2]DCINIQ.HLP not replaced
+File [0,2]DCINER.HLP not replaced
+File [0,2]DCINLI.HLP not replaced
+File [0,2]DCINOV.HLP not replaced
+File [0,2]DCINRU.HLP not replaced
+File [0,2]DCINSW.HLP not replaced
+File [0,2]DCLINK.HLP not replaced
+File [0,2]DCLOAD.HLP not replaced
+File [0,2]DCMTDK.HLP not replaced
+File [0,2]DCMTMT.HLP not replaced
+File [0,2]DCREAD.HLP not replaced
+File [0,2]DCREER.HLP not replaced
+File [0,2]DCREOV.HLP not replaced
+File [0,2]DCRESW.HLP not replaced
+File [0,2]DCRENA.HLP not replaced
+File [0,2]DCREST.HLP not replaced
+File [0,2]DCSET .HLP not replaced
+File [0,2]DCSEAC.HLP not replaced
+File [0,2]DCSEDT.HLP not replaced
+File [0,2]DCSEDV.HLP not replaced
+File [0,2]DCSEEN.HLP not replaced
+File [0,2]DCSEFI.HLP not replaced
+File [0,2]DCSEJO.HLP not replaced
+File [0,2]DCSEPT.HLP not replaced
+File [0,2]DCSEPN.HLP not replaced
+File [0,2]DCSESY.HLP not replaced
+File [0,2]DCSETE.HLP not replaced
+File [0,2]DCSHOW.HLP not replaced
+File [0,2]DCSHAC.HLP not replaced
+File [0,2]DCSHCA.HLP not replaced
+File [0,2]DCSHAL.HLP not replaced
+File [0,2]DCSHDK.HLP not replaced
+File [0,2]DCSHEN.HLP not replaced
+File [0,2]DCSHFO.HLP not replaced
+File [0,2]DCSHFS.HLP not replaced
+File [0,2]DCSHQU.HLP not replaced
+File [0,2]DCSHTE.HLP not replaced
+File [0,2]DCSHUS.HLP not replaced
+File [0,2]DCSTAR.HLP not replaced
+File [0,2]DCSTOP.HLP not replaced
+File [0,2]DCSUBM.HLP not replaced
+File [0,2]DCTYPE.HLP not replaced
+File [0,2]DCUNLO.HLP not replaced
+File [0,2]ADVANC.HLP not replaced
+File [0,2]DISKS .HLP not replaced
+File [0,2]FUNCTN.HLP not replaced
+File [0,2]MAGTAP.HLP not replaced
+File [0,2]PASSWD.HLP not replaced
+File [0,2]COPHLP.HLP not replaced
+File [0,2]PIPHLP.HLP not replaced
+File [0,2]PIPDIR.HLP not replaced
+File [0,2]SYSHLP.HLP not replaced
+File [0,2]TERMNL.HLP not replaced
+File [0,2]COPY  .HLP not replaced
+File [0,2]PIPSAV.HLP not replaced
+Restoring the BASIC-PLUS package from the Library kit
+File [0,12]BPLGEN.SAV not replaced
+File [0,12]RTS   .OBJ not replaced
+File [0,12]MA2   .OBJ not replaced
+File [0,12]MA2I  .OBJ not replaced
+File [0,12]MA2F  .OBJ not replaced
+File [0,12]MA4   .OBJ not replaced
+File [0,12]MA4F  .OBJ not replaced
+File [0,12]MA4D  .OBJ not replaced
+File [0,12]XL2   .OBJ not replaced
+File [0,12]XL2I  .OBJ not replaced
+File [0,12]XL2F  .OBJ not replaced
+File [0,12]XL4   .OBJ not replaced
+File [0,12]XL4F  .OBJ not replaced
+File [0,12]XT2   .OBJ not replaced
+File [0,12]XT2I  .OBJ not replaced
+File [0,12]XT2F  .OBJ not replaced
+File [0,12]XT4   .OBJ not replaced
+File [0,12]XT4F  .OBJ not replaced
+File [0,12]SF    .OBJ not replaced
+File [0,12]IO    .OBJ not replaced
+File [0,12]PU    .OBJ not replaced
+File [0,12]MX    .OBJ not replaced
+File [0,12]SN    .OBJ not replaced
+File [0,12]DBG   .OBJ not replaced
+File [0,12]VE    .OBJ not replaced
+File [0,12]BASIC .COM not replaced
+Restoring the Resident Libraries from the Library kit
+File [0,10]RMSRES.LIB not replaced
+File [0,10]RMSLBA.LIB not replaced
+File [0,10]RMSLBB.LIB not replaced
+File [0,10]RMSLBC.LIB not replaced
+File [0,10]RMSLBD.LIB not replaced
+File [0,10]RMSLBE.LIB not replaced
+File [0,10]RMSLBF.LIB not replaced
+File [0,10]DAPRES.LIB not replaced
+
+22-Oct-99 03:20 AM
+
+Installing software packages
+
+22-Oct-99 03:20 AM
+
+
+
+
+Beginning of RSTS/E Basic-Plus generation.
+
+
+BASIC-PLUS RTS name ?           <BASIC> 
+
+FPP ?                           <Y >    
+
+Math precision ?                <02>    
+
+Log functions ?                 <Y >    
+
+Trig functions ?                <Y >    
+
+Print using ?                   <Y >    
+
+Matrices ?                      <N >    
+
+String arithmetic ?             <N >    
+
+22-Oct-99 03:20 AM
+
+
+ Installing SORT/MERGE package
+
+*********************************************************
+**     This is the beginning of the dialogue to        **
+**  define the attributes of your SORT/MERGE utility.  **
+*********************************************************
+ 
+This procedure will, by default, build and install
+SORT and MERGE for optimum performance.  The utility
+SORT and MERGE tasks will have the following attributes:
+ 
+    SORT  built at 32K WORDS / MERGE built at 32K WORDS
+    Have ASCII as the default character collating sequence
+    Process duplicate records
+    Do a non-stable SORT and MERGE
+    Retry 2000 times when trying to read a locked bucket
+    Allow 55% of the SORT work area for SORT tree structure
+    Allow 30% of the MERGE work area for MERGE data structure
+    Use five (5) work files for SORT
+    Use the RECORD sort process
+    Sequence check the input files for MERGE
+ 
+Additionally, the default installation will NOT build the
+SORT and MERGE callable subroutines as a resident library.
+ 
+If you want the installation to proceed using
+these defaults, answer YES.  If you want to
+change any of these defaults, answer NO.
+ 
+Do you want to proceed with the default installation             <YES>? 
+ 
+************************************************
+** Your SORT AND MERGE  product will be built **
+** according to the following specifications: **
+************************************************
+ 
+SORT  TASK SIZE IS 32K WORDS
+MERGE TASK SIZE IS 32K WORDS
+YOU HAVE THE FOLLOWING RUNTIME DEFAULTS:
+    ASCII CHARACTER COLLATING SEQUENCE
+    RECORDS WITH DUPLICATE KEYS PROCESSED
+    NO STABLE PROCESS
+    2000 LOCKED BUCKET RETRIES
+    55% OF WORK AREA FOR SORT DATA STRUCTURES
+    45% OF WORK AREA FOR SORT RMS DATA STRUCTURES
+    30% OF WORK AREA FOR MERGE DATA STRUCTURES
+    70% OF WORK AREA FOR MERGE RMS DATA STRUCTURES
+    05 WORK FILES
+    RECORD SORT
+    SEQUENCE CHECK MERGE INPUT
+NO RESIDENT LIBRARY WILL BE BUILT
+ 
+ARE THE ABOVE DEFAULTS THE DESIRED ONES    <YES or NO>           <YES>? 
+ 
+*****************************************************
+**  This is the end of the installation dialogue.  **
+**    The installation will now proceed without    **
+**         further operator intervention.          **
+*****************************************************
+
+Running SORT/MERGE certification tests
+
+22-Oct-99 03:21 AM
+
+
+  * End of build phase *
+
+
+    The RSTS/E Software Installation Procedure is complete
+
+
+Deleting all global symbols
+
+Deassigning system logicals
+
+22-Oct-99 03:21 AM
+
+
+System tape label default set to DOS
+
+SY:[1,2]INSTAL.LOG is a log file of this session
+
+$
