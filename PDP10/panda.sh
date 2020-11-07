@@ -1,0 +1,2 @@
+cd panda
+./klt20
