@@ -47,6 +47,8 @@ wget http://panda.trailing-edge.com/panda-dist.tar.gz
 tar xvf panda-dist.tar.gz
 rm panda-dist.tar.gz
 mv panda-dist panda
+#PDP10 done
+cd ..
 
 #uVAX3900 
 cd uVAX3900
@@ -66,7 +68,7 @@ unzip quastape.zip
 cd ..
 #uVAX3900 done
 cd ..
-
+pwd
 #VAX 11/780
 cd VAX780
 #ultrix
