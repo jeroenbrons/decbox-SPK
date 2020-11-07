@@ -1,14 +1,9 @@
 #!/bin/bash
 
-
-
-
 DIALOG_CANCEL=1
 DIALOG_ESC=255
 HEIGHT=0
 WIDTH=0
-
-
 
 while true; do
   exec 3>&1
@@ -18,7 +13,7 @@ while true; do
     --clear \
     --cancel-label "Exit" \
     --menu "Please select system:" $HEIGHT $WIDTH 4 \
-    "1" "MicroVAX" \
+    "1" "MicroVAX 3900" \
     "2" "VAX-11" \
     "3" "PDP-10" \
     "4" "PDP-11" \
@@ -43,10 +38,12 @@ while true; do
       echo "Program terminated."
       ;;
     1 )
-      bash uVAX.sh
+      cd uVAX3900
+      bash uVAX3900.sh
       ;;
     2 )
-      bash VAX11.sh
+      cd VAX780
+      bash VAX780.sh
       ;;
     3 )
       bash PDP10.sh

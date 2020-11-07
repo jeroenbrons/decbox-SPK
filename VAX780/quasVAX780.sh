@@ -1,7 +1,5 @@
 #!/bin/bash
-
-
-
+cd quas
 
 DIALOG_CANCEL=1
 DIALOG_ESC=255
@@ -13,18 +11,13 @@ WIDTH=0
 while true; do
   exec 3>&1
   selection=$(dialog \
-    --backtitle "PDP-11 mode" \
-    --title "Menu" \
+    --backtitle "DECbox by SPARCie" \
+    --title "QUASIJARUS" \
     --clear \
     --cancel-label "Exit" \
     --menu "Please select system:" $HEIGHT $WIDTH 4 \
-    "1" "RT-11" \
-    "2" "RSTS-E" \
-    "3" "Research UNIX v1" \
-    "4" "Ultrix" \
-    "5" "RSX-11" \
-    "6" "2.11 BSD" \
-    "7" "Back to main menu" \
+    "1" "installation of QUASIJARUS" \
+    "2" "run QUASIJARUS" \
     2>&1 1>&3)
   exit_status=$?
   exec 3>&-
@@ -46,31 +39,12 @@ while true; do
       echo "Program terminated."
       ;;
     1 )
-      cd rt11
-      pdp11
+      vax780 init.ini
       ;;
     2 )
-      cd rstse
-      pdp11
+      vax780 boot.ini
       ;;
-    3 )
-      cd unixv1
-      pdp11
-      ;;
-    4 )
-      cd ultrix
-      pdp11
-      ;;
-    5 )
-      cd rsx11
-      pdp11
-      ;;
-    6 )
-      cd 211bsd
-      pdp11
-      ;;
-    7 )
-     cd ..
-     ./decbox.sh
   esac
 done 
+
+

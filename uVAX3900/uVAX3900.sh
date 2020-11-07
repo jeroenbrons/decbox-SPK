@@ -13,18 +13,15 @@ WIDTH=0
 while true; do
   exec 3>&1
   selection=$(dialog \
-    --backtitle "PDP-11 mode" \
+    --backtitle "DECbox by SPARCie" \
     --title "Menu" \
     --clear \
     --cancel-label "Exit" \
     --menu "Please select system:" $HEIGHT $WIDTH 4 \
-    "1" "RT-11" \
-    "2" "RSTS-E" \
-    "3" "Research UNIX v1" \
+    "1" "VAX/VMS 4" \
+    "2" "OpenVMS 7.3" \
+    "3" "Quasijarus 4.3" \
     "4" "Ultrix" \
-    "5" "RSX-11" \
-    "6" "2.11 BSD" \
-    "7" "Back to main menu" \
     2>&1 1>&3)
   exit_status=$?
   exec 3>&-
@@ -46,31 +43,19 @@ while true; do
       echo "Program terminated."
       ;;
     1 )
-      cd rt11
-      pdp11
+      cd vms4
+      vax
       ;;
     2 )
-      cd rstse
-      pdp11
+      cd vms7
+      vax
       ;;
     3 )
-      cd unixv1
-      pdp11
+      bash quas.sh
       ;;
     4 )
       cd ultrix
-      pdp11
+      vax
       ;;
-    5 )
-      cd rsx11
-      pdp11
-      ;;
-    6 )
-      cd 211bsd
-      pdp11
-      ;;
-    7 )
-     cd ..
-     ./decbox.sh
   esac
 done 
